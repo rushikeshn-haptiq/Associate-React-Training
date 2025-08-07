@@ -20,7 +20,7 @@ const ReviewList = ({ reviews }) => {
               <h3 className='font-bold text-2xl'>{review.productTitle}</h3>
               <h4 className="font-semibold text-base">{review.reviewerName || 'Anonymous'}</h4>
               <p className="text-xs text-gray-500">{review.reviewerEmail || 'N/A'}</p>
-              
+
               {/*  Star Rating */}
               <div className="flex items-center gap-1 mt-1 text-yellow-500">
                 {[...Array(review.rating || 0)].map((_, i) => (

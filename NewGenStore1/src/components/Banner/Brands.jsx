@@ -34,7 +34,7 @@ const Brands = ({ onBrandClick }) => {
         swipeable
         draggable
         arrows={false}
-     
+
       >
         {brands.map((brand, index) => (
           <div

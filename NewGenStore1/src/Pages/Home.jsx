@@ -25,7 +25,7 @@ const Home = () => {
         for (const category of selectedCategories) {
           const res = await fetch(`https://dummyjson.com/products/category/${category}`);
           const data = await res.json();
-          allProducts.push(data.products[0]); 
+          allProducts.push(data.products[0]);
           // console.log(data)// push all products in that category
         }
 
@@ -49,7 +49,7 @@ const Home = () => {
           ))}
         </div>
         <div className='py-4'>
-          <Brands/>
+          <Brands />
         </div>
       </div>
     </div>

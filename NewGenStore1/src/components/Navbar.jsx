@@ -53,15 +53,15 @@ const Navbar = () => {
               </span>
             )}
           </button>
-           <Link to="/wishlist" className="relative text-gray-700 hover:text-orange-600 flex items-center gap-1">
-          <FaHeart />
-          <span>Wishlist</span>
-          {wishlistCount > 0 && (
-            <span className="absolute -top-2 -right-2 text-xs bg-red-500 text-white px-1 rounded-full">
-              {wishlistCount}
-            </span>
-          )}
-        </Link>
+          <Link to="/wishlist" className="relative text-gray-700 hover:text-orange-600 flex items-center gap-1">
+            <FaHeart />
+            <span>Wishlist</span>
+            {wishlistCount > 0 && (
+              <span className="absolute -top-2 -right-2 text-xs bg-red-500 text-white px-1 rounded-full">
+                {wishlistCount}
+              </span>
+            )}
+          </Link>
 
           {/* User */}
           {user ? (

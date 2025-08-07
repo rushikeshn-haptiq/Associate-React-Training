@@ -19,7 +19,7 @@ const Cart = () => {
           <img
             src={item.images[0]}
             alt={item.name}
-            className="w-22 h-22 object-cover rounded"
+            className="w-24 h-24 object-cover rounded"
             onError={(e) => (e.target.style.display = 'none')}
           />
 
@@ -48,12 +48,12 @@ const Cart = () => {
             className="text-red-500 font-bold"
             onClick={() => dispatch(removeFromCart(item.id))}
           >
-           remove
+            remove
           </button>
         </div>
       ))}
 
-      
+
       <div className="flex justify-between items-center pt-4 font-bold text-lg">
         <span>Total:</span>
         <span>$ {Math.round(totalAmount)}</span>

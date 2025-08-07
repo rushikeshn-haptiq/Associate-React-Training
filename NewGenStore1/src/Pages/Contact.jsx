@@ -20,7 +20,7 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.email || !formData.subject || !formData.message) {
       alert("Please fill all fields");
       return;
@@ -39,7 +39,7 @@ const Contact = () => {
   return (
     <div className="max-w-2xl mx-auto p-6 mt-10 bg-white rounded-xl shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">Contact Us</h2>
-      
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"

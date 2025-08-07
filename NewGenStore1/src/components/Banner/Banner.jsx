@@ -19,25 +19,25 @@ const Banner = () => {
   ];
 
   return (
-  <Carousel
-  responsive={responsive}
-  infinite
-  autoPlay
-  autoPlaySpeed={3000}
-  swipeable
-  draggable
+    <Carousel
+      responsive={responsive}
+      infinite
+      autoPlay
+      autoPlaySpeed={3000}
+      swipeable
+      draggable
 
->
-  {images.map((src, index) => (
-    <div key={index} className="w-full">
-      <img
-        src={src}
-        alt={`Slide ${index + 1}`}
-        className="w-full lg:h-[600px] h-full md:h-[500px] object-cover "
-      />
-    </div>
-  ))}
-</Carousel>
+    >
+      {images.map((src, index) => (
+        <div key={index} className="w-full">
+          <img
+            src={src}
+            alt={`Slide ${index + 1}`}
+            className="w-full lg:h-[600px] h-full md:h-[500px] object-cover "
+          />
+        </div>
+      ))}
+    </Carousel>
 
 
   );

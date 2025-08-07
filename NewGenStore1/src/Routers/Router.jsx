@@ -19,82 +19,82 @@ import Dashboard from '../Pages/Dashboard'
 import WishlistPage from '../Pages/WIshlistPage'
 
 const Router = () => {
-     const Router = createBrowserRouter([
+  const Router = createBrowserRouter([
     {
-      path:"/",
-      element:<Mainlayout/>,
-      children:[
+      path: "/",
+      element: <Mainlayout />,
+      children: [
         {
-          index:true,
-          element:<Home/>
+          index: true,
+          element: <Home />
         },
         {
-            path:"/about",
-            element:<About/>
+          path: "/about",
+          element: <About />
         },
         {
-            path:"/help",
-            element:<Help/>
+          path: "/help",
+          element: <Help />
         },
         {
-            path:"/contact",
-            element:<Contact/>
+          path: "/contact",
+          element: <Contact />
         },
         {
-            path:"/sign",
-            element:<Sign/>
+          path: "/sign",
+          element: <Sign />
         },
         {
-            path:"/login",
-            element:<Login/>
+          path: "/login",
+          element: <Login />
         },
         {
-            path:"/categories",
-            element:<Category/>
+          path: "/categories",
+          element: <Category />
         },
         {
-          path:"/laptop",
-        element:<Laptop/>
+          path: "/laptop",
+          element: <Laptop />
         },
         {
-          path:"/clothes",
-        element:<Clothes/>
+          path: "/clothes",
+          element: <Clothes />
         },
         {
-          path:"/shoes",
-        element:<Shoes/>
+          path: "/shoes",
+          element: <Shoes />
         },
         {
-          path:"/watches",
-        element:<Watches/>
+          path: "/watches",
+          element: <Watches />
         },
         {
-          path:"/bags",
-        element:<Bags/>
+          path: "/bags",
+          element: <Bags />
         },
         {
-          path:"/product/:id",
-        element:<ProductDetails/>
+          path: "/product/:id",
+          element: <ProductDetails />
         },
         {
-          path:"/wishlist",
-        element:<WishlistPage/>
+          path: "/wishlist",
+          element: <WishlistPage />
         },
-           {
+        {
           path: "/dashboard",
           element: (
             <ProtectedRoute>
-              <Dashboard/>
+              <Dashboard />
             </ProtectedRoute>
           ),
         },
       ]
     },
-    
-   
+
+
   ])
   return (
-      <RouterProvider router={Router}/>
+    <RouterProvider router={Router} />
   )
 }
 

@@ -16,9 +16,9 @@ const Mainlayout = () => {
 
   const handlerClick = () => {
     if (user) {
-      navigate('/'); 
+      navigate('/');
     } else {
-      navigate('/login'); 
+      navigate('/login');
     }
   };
 
@@ -38,7 +38,7 @@ const Mainlayout = () => {
         <Outlet />
       </div>
       <Footer />
-      
+
       {/* ✅ Cart Modal */}
       <CartModal
         ref={modalRef}

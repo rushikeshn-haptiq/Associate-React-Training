@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import { addToCart} from "../redux/CartSlice";
-import { useDispatch} from "react-redux";
+import { addToCart } from "../redux/CartSlice";
+import { useDispatch } from "react-redux";
 
 
 const ProductDetails = () => {
   const { id } = useParams();
   const location = useLocation();
-    
+
   const product = location.state?.product;
- 
+
   const [reviews, setReviews] = useState([]);
   const [loadingReviews, setLoadingReviews] = useState(true);
   const [showAll, setShowAll] = useState(false);
   const [ratings, setRatings] = useState({});
- const dispatch =useDispatch();
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -28,7 +28,7 @@ const ProductDetails = () => {
           ...c,
           rating: Math.floor(Math.random() * 5) + 1,
         }));
-  
+
         setReviews(commentsWithRatings);
         countRatings(commentsWithRatings);
       } catch (error) {
@@ -69,9 +69,9 @@ const ProductDetails = () => {
 
   return (
     <>
-      
+
       <div className="  p-6 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 bg-gray-50 items-start ">
-      
+
         <div className="flex justify-center items-center bg-white rounded-3xl shadow-xl p-6">
           <img
             src={product.thumbnail}
@@ -93,7 +93,7 @@ const ProductDetails = () => {
 
           <div className="flex flex-col space-y-2">
             <span className="text-2xl font-semibold text-green-600">
-            $                 {product.price}
+              ${product.price}
             </span>
             <span className="text-lg text-yellow-600">
               Rating: <span className="font-medium">{product.rating} ⭐</span>
@@ -106,32 +106,32 @@ const ProductDetails = () => {
         </div>
       </div>
 
-     
-   {/* Rating Breakdown */}
 
-<div className="max-w-2xl mx-auto px-4 mt-10">
-  <h4 className="text-2xl font-semibold mb-4 text-gray-800">Rating Breakdown </h4>
-  <div className="space-y-3">
-    {[5, 4, 3, 2, 1].map((star) => {
-      const count = ratings[star] || 0;
-      const total = Object.values(ratings).reduce((sum, val) => sum + val, 0);
-      const percentage = total ? (count / total) * 100 : 0;
+      {/* Rating Breakdown */}
 
-      return (
-        <div key={star} className="flex items-center space-x-4">
-          <span className="w-10 text-sm text-gray-700">{star} ★</span>
-          <div className="w-full bg-gray-200 rounded-full h-4 relative">
-            <div
-              className="bg-yellow-400 h-4 rounded-full"
-              style={{ width: `${percentage}%` }}
-            ></div>
-          </div>
-          <span className="w-10 text-sm text-gray-600">{count}</span>
+      <div className="max-w-2xl mx-auto px-4 mt-10">
+        <h4 className="text-2xl font-semibold mb-4 text-gray-800">Rating Breakdown </h4>
+        <div className="space-y-3">
+          {[5, 4, 3, 2, 1].map((star) => {
+            const count = ratings[star] || 0;
+            const total = Object.values(ratings).reduce((sum, val) => sum + val, 0);
+            const percentage = total ? (count / total) * 100 : 0;
+
+            return (
+              <div key={star} className="flex items-center space-x-4">
+                <span className="w-10 text-sm text-gray-700">{star} ★</span>
+                <div className="w-full bg-gray-200 rounded-full h-4 relative">
+                  <div
+                    className="bg-yellow-400 h-4 rounded-full"
+                    style={{ width: `${percentage}%` }}
+                  ></div>
+                </div>
+                <span className="w-10 text-sm text-gray-600">{count}</span>
+              </div>
+            );
+          })}
         </div>
-      );
-    })}
-  </div>
-</div>
+      </div>
 
 
       {/* Reviews */}

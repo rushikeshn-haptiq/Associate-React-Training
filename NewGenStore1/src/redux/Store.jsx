@@ -4,10 +4,10 @@ import authReducer from './authSlice';
 import cartReducer from "./CartSlice";
 import wishlistReducer from './wishlistSlice';
 export const store = configureStore({
-    reducer:{
-        search:SearchReducer,
+    reducer: {
+        search: SearchReducer,
         auth: authReducer,
-         cart: cartReducer,
+        cart: cartReducer,
         wishlist: wishlistReducer,
     }
 })

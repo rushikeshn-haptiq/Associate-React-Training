@@ -10,7 +10,7 @@ const Category = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortOption, setSortOption] = useState('');
 
-  const searchTerm = useSelector((state) => state.search.searchTerm?.toLowerCase()||'');
+  const searchTerm = useSelector((state) => state.search.searchTerm?.toLowerCase() || '');
 
   const selectedCategories = [
     "laptops", "mens-shirts", "mens-shoes", "mens-watches",

@@ -102,9 +102,8 @@ const InputField = ({ label, name, value, onChange, disabled, type = 'text' }) =
       value={value}
       onChange={onChange}
       disabled={disabled}
-      className={`p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
-        disabled ? 'bg-gray-100 cursor-not-allowed' : 'bg-white'
-      }`}
+      className={`p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'bg-white'
+        }`}
     />
   </div>
 );
@@ -117,9 +116,8 @@ const SelectField = ({ label, name, value, onChange, disabled }) => (
       value={value}
       onChange={onChange}
       disabled={disabled}
-      className={`p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
-        disabled ? 'bg-gray-100 cursor-not-allowed' : 'bg-white'
-      }`}
+      className={`p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'bg-white'
+        }`}
     >
       <option value="">Select</option>
       <option value="male">Male</option>
