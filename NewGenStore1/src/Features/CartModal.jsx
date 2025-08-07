@@ -28,7 +28,7 @@ const CartModal = forwardRef(({ title = 'Your Cart', actions }, ref) => {
         </form>
       </div>
     </dialog>,
-    document.getElementById('modal') // 🔸 ensure this div is in public/index.html
+    document.getElementById('modal') //🔸 ensure this div is in index.html in the project root
   );
 });
 
