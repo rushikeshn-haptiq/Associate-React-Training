@@ -33,7 +33,7 @@ const cartSlice = createSlice({
         state.items.push({
           ...action.payload,
           quantity: 1,
-          unitPrice: action.payload.price, // Save the original price
+          unitPrice: action.payload.price !== undefined ? action.payload.price : (action.payload.unitPrice !== undefined ? action.payload.unitPrice : 0), // Save the original price
         });
       }
 
