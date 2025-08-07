@@ -3,7 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 // Load wishlist from localStorage
 const loadWishlist = () => {
   const stored = localStorage.getItem("wishlist");
-  return stored ? JSON.parse(stored) : [];
+  if (stored) {
+    try {
+      return JSON.parse(stored);
+    } catch (e) {
+      // If parsing fails, return empty array
+      return [];
+    }
+  }
+  return [];
 };
 
 // Save wishlist to localStorage
