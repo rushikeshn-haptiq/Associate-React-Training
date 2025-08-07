@@ -1,12 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-// Load from localStorage
-// TODO: Implement token management using localStorage if/when token-based authentication is required.
 const userFromStorage = localStorage.getItem('user');
 
+
+let parsedUser = null;
+if (userFromStorage) {
+  try {
+    parsedUser = JSON.parse(userFromStorage);
+  } catch (e) {
+    parsedUser = null;
+  }
+}
 const initialState = {
   isAuthenticated: !!userFromStorage,
-  user: userFromStorage ? JSON.parse(userFromStorage) : null,
+  user:parsedUser,
 };
 
 const authSlice = createSlice({
@@ -23,10 +29,6 @@ const authSlice = createSlice({
     logout: (state) => {
       state.isAuthenticated = false;
       state.user = null;
-
-
-      // Clear localStorage
-      // localStorage.removeItem('token');
       localStorage.removeItem('user');
     },
   },
