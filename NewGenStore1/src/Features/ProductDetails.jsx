@@ -69,7 +69,7 @@ const ProductDetails = () => {
 
   return (
     <>
-      =
+      
       <div className="  p-6 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 bg-gray-50 items-start ">
       
         <div className="flex justify-center items-center bg-white rounded-3xl shadow-xl p-6">
@@ -110,7 +110,7 @@ const ProductDetails = () => {
    {/* Rating Breakdown */}
 
 <div className="max-w-2xl mx-auto px-4 mt-10">
-  <h4 className="text-2xl font-semibold mb-4 text-gray-800">Rating Breakdown {maxRatingCount} </h4>
+  <h4 className="text-2xl font-semibold mb-4 text-gray-800">Rating Breakdown </h4>
   <div className="space-y-3">
     {[5, 4, 3, 2, 1].map((star) => {
       const count = ratings[star] || 0;
