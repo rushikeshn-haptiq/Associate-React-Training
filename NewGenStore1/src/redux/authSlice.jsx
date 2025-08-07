@@ -12,7 +12,7 @@ if (userFromStorage) {
 }
 const initialState = {
   isAuthenticated: !!userFromStorage,
-  user:parsedUser,
+  user: parsedUser,
 };
 
 const authSlice = createSlice({
