@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 
 const Subnavbar = () => {
   return (
-    <div className="flex flex-wrap items-center justify-between px-6 py-4 bg-white shadow-md">
+    <nav
+      className="flex flex-wrap items-center justify-between px-6 py-4 bg-white shadow-md"
+      aria-label="Sub navigation"
+    >
       {/* All Categories Button */}
       <div>
         <Link
@@ -33,7 +36,7 @@ const Subnavbar = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
   );
 };
 

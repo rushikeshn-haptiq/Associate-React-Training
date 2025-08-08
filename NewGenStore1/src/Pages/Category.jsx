@@ -21,13 +21,11 @@ const Category = () => {
     const fetchProductsByCategory = async () => {
       try {
         const allProducts = [];
-
         for (const category of selectedCategories) {
           const res = await fetch(`https://dummyjson.com/products/category/${category}`);
           const data = await res.json();
           allProducts.push(...data.products);
         }
-
         setProducts(allProducts);
         setFilteredProducts(allProducts);
 
@@ -37,7 +35,6 @@ const Category = () => {
             productTitle: product.title,
           }))
         );
-
         setReviews(allReviews.slice(0, 6));
       } catch (error) {
         console.error('Error fetching products or reviews:', error);
@@ -47,7 +44,6 @@ const Category = () => {
     fetchProductsByCategory();
   }, []);
 
-  // Filtering + Sorting + Search Logic
   useEffect(() => {
     let updatedProducts = [...products];
 
@@ -59,7 +55,8 @@ const Category = () => {
 
     if (searchTerm) {
       updatedProducts = updatedProducts.filter(product =>
-        product.title.toLowerCase().includes(searchTerm)
+        product.title.toLowerCase().includes(searchTerm) ||
+        product.description.toLowerCase().includes(searchTerm)
       );
     }
 
@@ -103,15 +100,19 @@ const Category = () => {
 
       {/* Product Cards */}
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4'>
-        {filteredProducts.map(product => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))
+        ) : (
+          <p className='text-xl col-span-full text-center'>No matching products found.</p>
+        )}
       </div>
 
       {/* Review Section */}
       {reviews.length > 0 && (
         <div className='mt-16'>
-          <h2 className='text-3xl  font-bold text-center mb-6'>Customer Reviews</h2>
+          <h2 className='text-3xl font-bold text-center mb-6'>Customer Reviews</h2>
           <ReviewList reviews={reviews} />
         </div>
       )}

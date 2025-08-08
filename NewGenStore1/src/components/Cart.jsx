@@ -15,17 +15,17 @@ const Cart = () => {
   return (
     <div className="space-y-4 max-h-96 overflow-y-auto">
       {items.map((item) => (
-        <div key={item.id} className="flex items-center gap-4 border-b-2  py-2">
+        <div key={item.id} className="flex items-center gap-4 border-b-2 py-2">
           <img
-            src={item.images[0]}
-            alt={item.name}
+            src={item.images?.[0] || 'https://via.placeholder.com/100x100?text=No+Image'}
+            alt={item.title}
             className="w-24 h-24 object-cover rounded"
-            onError={(e) => (e.target.style.display = 'none')}
+            onError={(e) => { e.target.src = 'https://via.placeholder.com/100x100?text=No+Image'; }}
           />
 
           <div className="flex-1">
             <h3 className="font-semibold">{item.title}</h3>
-            <p>$ {item.unitPrice * item.quantity}</p>
+            <p>$ {(item.unitPrice * item.quantity).toFixed(2)}</p>
 
             <div className="flex items-center gap-2 mt-2">
               <button
@@ -53,10 +53,9 @@ const Cart = () => {
         </div>
       ))}
 
-
       <div className="flex justify-between items-center pt-4 font-bold text-lg">
         <span>Total:</span>
-        <span>$ {Math.round(totalAmount)}</span>
+        <span>$ {totalAmount.toFixed(2)}</span>
       </div>
     </div>
   );

@@ -3,11 +3,9 @@ import { useLocation, useParams } from "react-router-dom";
 import { addToCart } from "../redux/CartSlice";
 import { useDispatch } from "react-redux";
 
-
 const ProductDetails = () => {
   const { id } = useParams();
   const location = useLocation();
-
   const product = location.state?.product;
 
   const [reviews, setReviews] = useState([]);
@@ -15,20 +13,18 @@ const ProductDetails = () => {
   const [showAll, setShowAll] = useState(false);
   const [ratings, setRatings] = useState({});
   const dispatch = useDispatch();
+
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const res = await fetch(`https://dummyjson.com/comments?postId=${id}`);
         const data = await res.json();
-
         const comments = data.comments || [];
-
         // Assign random rating to simulate (replace with real rating if available)
         const commentsWithRatings = comments.map((c) => ({
           ...c,
           rating: Math.floor(Math.random() * 5) + 1,
         }));
-
         setReviews(commentsWithRatings);
         countRatings(commentsWithRatings);
       } catch (error) {
@@ -38,10 +34,8 @@ const ProductDetails = () => {
         setLoadingReviews(false);
       }
     };
-
     fetchReviews();
   }, [id]);
-
 
   const countRatings = (comments) => {
     const counts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
@@ -49,13 +43,10 @@ const ProductDetails = () => {
     setRatings(counts);
   };
 
-  const maxRatingCount = Math.max(...Object.values(ratings));
-
   const handleAddToCart = () => {
     dispatch(addToCart(product));
     // dispatch(openCart()); // optional: open modal immediately
   };
-
 
   const visibleReviews = showAll ? reviews : reviews.slice(0, 5);
 
@@ -67,16 +58,21 @@ const ProductDetails = () => {
     );
   }
 
+  // Fallback image logic
+  const imageSrc =
+    product.thumbnail ||
+    (product.images && product.images[0]) ||
+    "https://via.placeholder.com/300x300?text=No+Image";
+
   return (
     <>
-
-      <div className="  p-6 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 bg-gray-50 items-start ">
-
+      <div className="p-6 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 bg-gray-50 items-start">
         <div className="flex justify-center items-center bg-white rounded-3xl shadow-xl p-6">
           <img
-            src={product.thumbnail}
+            src={imageSrc}
             alt={product.title}
             className="max-w-xs md:max-w-sm lg:max-w-md object-contain rounded-2xl transition-transform duration-300 hover:scale-105"
+            onError={e => { e.target.src = "https://via.placeholder.com/300x300?text=No+Image"; }}
           />
         </div>
 
@@ -84,39 +80,33 @@ const ProductDetails = () => {
           <span className="text-sm bg-blue-100 text-blue-800 font-semibold px-4 py-2 rounded-full shadow w-max">
             Product Details
           </span>
-
           <h2 className="text-4xl font-bold">{product.title}</h2>
-
-          <p className="text-lg leading-relaxed text-gray-700">
-            {product.description}
-          </p>
-
+          <p className="text-lg leading-relaxed text-gray-700">{product.description}</p>
           <div className="flex flex-col space-y-2">
             <span className="text-2xl font-semibold text-green-600">
-              ${product.price}
+              ${Number(product.price).toFixed(2)}
             </span>
             <span className="text-lg text-yellow-600">
-              Rating: <span className="font-medium">{product.rating} ⭐</span>
+              Rating: <span className="font-medium">{product.rating ? product.rating : "N/A"} ⭐</span>
             </span>
           </div>
-
-          <button onClick={handleAddToCart} className="mt-4 w-max px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white text-lg font-semibold rounded-xl shadow-lg transition duration-300">
+          <button
+            onClick={handleAddToCart}
+            className="mt-4 w-max px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white text-lg font-semibold rounded-xl shadow-lg transition duration-300"
+          >
             Add to Cart
           </button>
         </div>
       </div>
 
-
       {/* Rating Breakdown */}
-
       <div className="max-w-2xl mx-auto px-4 mt-10">
-        <h4 className="text-2xl font-semibold mb-4 text-gray-800">Rating Breakdown </h4>
+        <h4 className="text-2xl font-semibold mb-4 text-gray-800">Rating Breakdown</h4>
         <div className="space-y-3">
           {[5, 4, 3, 2, 1].map((star) => {
             const count = ratings[star] || 0;
             const total = Object.values(ratings).reduce((sum, val) => sum + val, 0);
             const percentage = total ? (count / total) * 100 : 0;
-
             return (
               <div key={star} className="flex items-center space-x-4">
                 <span className="w-10 text-sm text-gray-700">{star} ★</span>
@@ -133,11 +123,9 @@ const ProductDetails = () => {
         </div>
       </div>
 
-
       {/* Reviews */}
-      <div className="max-w-7xl mx-auto mt-10 px-4 ">
+      <div className="max-w-7xl mx-auto mt-10 px-4">
         <h3 className="text-2xl font-bold mb-4 text-gray-800">Customer Reviews</h3>
-
         {loadingReviews ? (
           <p className="text-gray-500">Loading reviews...</p>
         ) : reviews.length === 0 ? (
@@ -160,7 +148,6 @@ const ProductDetails = () => {
                 </div>
               ))}
             </div>
-
             {reviews.length > 5 && (
               <div className="mt-6 text-center">
                 <button

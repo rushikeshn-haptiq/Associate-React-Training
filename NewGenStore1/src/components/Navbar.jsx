@@ -11,19 +11,20 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const cartItems = useSelector((state) => state.cart.items);
+  const wishlistCount = useSelector((state) => state.wishlist.length);
   const [menuOpen, setMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
-  const toggleUserMenu = () => setUserMenuOpen(!userMenuOpen);
-  const wishlistCount = useSelector((state) => state.wishlist.length);
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const toggleUserMenu = () => setUserMenuOpen((prev) => !prev);
+
   const handleLogout = () => {
     dispatch(logout());
     setUserMenuOpen(false);
   };
 
   return (
-    <nav className="w-full  bg-white shadow-md ">
+    <nav className="w-full bg-white shadow-md">
       <div className="flex justify-between items-center px-6 py-4">
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold hover:opacity-90">
@@ -45,7 +46,7 @@ const Navbar = () => {
         {/* Right Side Icons */}
         <div className="flex items-center gap-4">
           {/* Cart Icon */}
-          <button onClick={() => dispatch(openCart())} className="relative text-2xl">
+          <button type="button" onClick={() => dispatch(openCart())} className="relative text-2xl">
             <FaShoppingCart />
             {cartItems.length > 0 && (
               <span className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 rounded-full text-white text-xs flex items-center justify-center">
@@ -53,15 +54,17 @@ const Navbar = () => {
               </span>
             )}
           </button>
-          <Link to="/wishlist" className="relative text-gray-700 hover:text-orange-600 flex items-center gap-1">
-            <FaHeart />
-            <span>Wishlist</span>
+          <div className="relative flex items-center">
+            <Link to="/wishlist" className="text-gray-700 hover:text-orange-600 flex items-center gap-1">
+              <FaHeart />
+              <span>Wishlist</span>
+            </Link>
             {wishlistCount > 0 && (
               <span className="absolute -top-2 -right-2 text-xs bg-red-500 text-white px-1 rounded-full">
                 {wishlistCount}
               </span>
             )}
-          </Link>
+          </div>
 
           {/* User */}
           {user ? (
@@ -93,7 +96,7 @@ const Navbar = () => {
           )}
 
           {/* Hamburger for mobile */}
-          <button className="md:hidden text-xl" onClick={toggleMenu}>
+          <button className="md:hidden text-xl" onClick={toggleMenu} aria-label="Toggle menu">
             {menuOpen ? <FaTimes /> : <FaBars />}
           </button>
         </div>
@@ -101,7 +104,7 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <ul className="md:hidden px-6 py-4 bg-white border-t text-gray-700">
+        <ul className="md:hidden px-6 py-4 bg-white border-t text-gray-700" role="menu" aria-label="Mobile navigation">
           <li className="py-2"><Link to="/about" onClick={toggleMenu}>About</Link></li>
           <li className="py-2"><Link to="/help" onClick={toggleMenu}>Help</Link></li>
           <li className="py-2"><Link to="/contact" onClick={toggleMenu}>Contact</Link></li>

@@ -46,7 +46,8 @@ const Shoes = () => {
   useEffect(() => {
     if (searchTerm) {
       const filtered = products.filter((product) =>
-        product.title.toLowerCase().includes(searchTerm)
+        product.title.toLowerCase().includes(searchTerm) ||
+        product.description.toLowerCase().includes(searchTerm)
       );
       setFilteredProducts(filtered);
     } else {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import ProductCard from '../../components/ProductCard';
 import ReviewList from '../../Features/reviewList';
 import { useSelector } from 'react-redux';
@@ -43,7 +43,8 @@ const Watches = () => {
   useEffect(() => {
     if (searchTerm) {
       const filtered = products.filter((product) =>
-        product.title.toLowerCase().includes(searchTerm)
+        product.title.toLowerCase().includes(searchTerm) ||
+        product.description.toLowerCase().includes(searchTerm)
       );
       setFilteredProducts(filtered);
     } else {

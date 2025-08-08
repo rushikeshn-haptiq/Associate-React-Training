@@ -1,37 +1,29 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import Navbar from '../components/Navbar';
 import Subnavbar from '../components/Subnavbar';
 import Footer from '../components/Footer';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeCart } from '../redux/CartSlice';
 import CartModal from '../Features/CartModal';
-import { Outlet, useNavigate } from 'react-router-dom'; // ✅ FIXED
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const Mainlayout = () => {
   const isOpen = useSelector((state) => state.cart.isOpen);
-  const user = useSelector((state) => state.auth.user); // ✅ Replace with correct path to user
-  const modalRef = useRef();
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // ✅ FIXED
+  const navigate = useNavigate();
 
   const handlerClick = () => {
     if (user) {
+      // If you have a checkout page, use: navigate('/checkout');
       navigate('/');
     } else {
       navigate('/login');
     }
   };
 
-  useEffect(() => {
-    if (isOpen) {
-      modalRef.current?.open?.(); // ✅ Optional chaining if `open` method exists
-    } else {
-      modalRef.current?.close?.(); // ✅ Optional chaining if `close` method exists
-    }
-  }, [isOpen]);
-
   return (
-    <div className="flex flex-col  min-h-screen">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <Subnavbar />
       <div className="flex-grow">
@@ -39,26 +31,29 @@ const Mainlayout = () => {
       </div>
       <Footer />
 
-      {/* ✅ Cart Modal */}
-      <CartModal
-        ref={modalRef}
-        actions={
-          <>
-            <button
-              className="bg-red-500 text-white px-4 py-2 rounded"
-              onClick={() => dispatch(closeCart())}
-            >
-              Close
-            </button>
-            <button
-              className="bg-green-500 text-white px-4 py-2 rounded"
-              onClick={handlerClick}
-            >
-              Checkout
-            </button>
-          </>
-        }
-      />
+      {/* Cart Modal - controlled by Redux */}
+      {isOpen && (
+        <CartModal
+          actions={
+            <>
+              <button
+                className="bg-red-500 text-white px-4 py-2 rounded"
+                aria-label="Close cart"
+                onClick={() => dispatch(closeCart())}
+              >
+                Close
+              </button>
+              <button
+                className="bg-green-500 text-white px-4 py-2 rounded"
+                aria-label="Proceed to checkout"
+                onClick={handlerClick}
+              >
+                Checkout
+              </button>
+            </>
+          }
+        />
+      )}
     </div>
   );
 };

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 const Laptop = () => {
   const [laptops, setLaptops] = useState([]);
-  const [review, setReview] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   const searchTerm = useSelector((state) => state.search.searchTerm?.toLowerCase() || '');
@@ -18,13 +18,13 @@ const Laptop = () => {
         setLaptops(data.products);
         setFilteredProducts(data.products);
 
-        const Reviews = data.products.flatMap(product =>
+        const allReviews = data.products.flatMap(product =>
           (product.reviews || []).map(review => ({
             ...review,
             productTitle: product.title,
           }))
         );
-        setReview(Reviews.slice(0, 5));
+        setReviews(allReviews.slice(0, 5));
       } catch (error) {
         console.log("Fetch error:", error);
       }
@@ -33,7 +33,6 @@ const Laptop = () => {
     fetchData();
   }, []);
 
-  // Filter products based on search term
   useEffect(() => {
     if (searchTerm) {
       const filtered = laptops.filter(product =>
@@ -64,7 +63,7 @@ const Laptop = () => {
 
       <div className='py-20 px-2'>
         <h2 className='text-4xl font-semibold mb-10'>What Our Customers Say</h2>
-        <ReviewList reviews={review} />
+        <ReviewList reviews={reviews} />
       </div>
     </div>
   );

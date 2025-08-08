@@ -18,6 +18,11 @@ const Contact = () => {
     }));
   };
 
+  const validateEmail = (email) => {
+    // Simple email regex
+    return /\S+@\S+\.\S+/.test(email);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -25,6 +30,13 @@ const Contact = () => {
       alert("Please fill all fields");
       return;
     }
+
+    if (!validateEmail(formData.email)) {
+      alert("Please enter a valid email address");
+      return;
+    }
+
+    if (submitted) return; // Prevent multiple submissions
 
     console.log('Submitted Data:', formData);
 
@@ -40,7 +52,7 @@ const Contact = () => {
     <div className="max-w-2xl mx-auto p-6 mt-10 bg-white rounded-xl shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">Contact Us</h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4" aria-label="Contact Form">
         <input
           type="text"
           name="name"
@@ -48,6 +60,7 @@ const Contact = () => {
           className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
           value={formData.name}
           onChange={handleChange}
+          disabled={submitted}
         />
 
         <input
@@ -57,6 +70,7 @@ const Contact = () => {
           className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
           value={formData.email}
           onChange={handleChange}
+          disabled={submitted}
         />
 
         <input
@@ -66,6 +80,7 @@ const Contact = () => {
           className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
           value={formData.subject}
           onChange={handleChange}
+          disabled={submitted}
         />
 
         <textarea
@@ -75,11 +90,13 @@ const Contact = () => {
           className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none"
           value={formData.message}
           onChange={handleChange}
+          disabled={submitted}
         ></textarea>
 
         <button
           type="submit"
           className="w-full bg-orange-600 text-white font-semibold py-3 rounded-md hover:bg-orange-700 transition"
+          disabled={submitted}
         >
           Send Message
         </button>

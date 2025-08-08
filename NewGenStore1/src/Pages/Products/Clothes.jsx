@@ -13,7 +13,6 @@ const Clothes = () => {
     state.search.searchTerm?.toLowerCase() || ''
   );
 
-  // Fetch data once
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,7 +32,6 @@ const Clothes = () => {
             productTitle: product.title,
           }))
         );
-
         setReviews(allReviews.slice(0, 5)); // Limit to top 5 reviews
       } catch (error) {
         console.error('Error fetching clothes data', error);
@@ -43,11 +41,11 @@ const Clothes = () => {
     fetchData();
   }, []);
 
-  // Filter data on searchTerm change
   useEffect(() => {
     if (searchTerm) {
       const filtered = products.filter((product) =>
-        product.title.toLowerCase().includes(searchTerm)
+        product.title.toLowerCase().includes(searchTerm) ||
+        product.description.toLowerCase().includes(searchTerm)
       );
       setFilteredProducts(filtered);
     } else {

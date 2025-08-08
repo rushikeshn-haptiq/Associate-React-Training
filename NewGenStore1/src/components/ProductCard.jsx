@@ -27,11 +27,18 @@ const ProductCard = ({ product }) => {
     }
   };
 
+  // Fallback image logic
+  const imageSrc =
+    product.thumbnail ||
+    (product.images && product.images[0]) ||
+    "https://via.placeholder.com/250x250?text=No+Image";
+
   return (
     <div className="w-full max-w-sm bg-white shadow-lg rounded-xl overflow-hidden p-4 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 relative">
       {/* Wishlist Heart Icon */}
       <button
         onClick={handleWishlistToggle}
+        aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
         className="absolute top-3 right-3 z-10 text-xl text-red-500 hover:scale-110 transition-transform"
       >
         {isWishlisted ? <FaHeart /> : <FaRegHeart />}
@@ -39,16 +46,17 @@ const ProductCard = ({ product }) => {
 
       <div className="w-full h-[250px] bg-gray-100 rounded-lg overflow-hidden shadow-md mb-4 flex items-center justify-center">
         <img
-          src={product.thumbnail || product.images?.[0]}
+          src={imageSrc}
           alt={product.title}
           className="object-cover h-full w-full hover:scale-105 transition-transform duration-300"
+          onError={e => { e.target.src = "https://via.placeholder.com/250x250?text=No+Image"; }}
         />
       </div>
 
       <div className="text-center">
         <h2 className="text-lg font-bold truncate">{product.title}</h2>
         <p className="text-sm text-gray-500 mb-1">{product.brand}</p>
-        <p className="text-orange-600 font-bold text-lg">${product.price}</p>
+        <p className="text-orange-600 font-bold text-lg">${Number(product.price).toFixed(2)}</p>
       </div>
 
       <div className="mt-4 flex gap-3 justify-center">
