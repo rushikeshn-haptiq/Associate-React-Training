@@ -1,21 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// Load initial cart items from localStorage
-let storedItems = [];
-try {
-  const item = localStorage.getItem('cartItems');
-  if (item) {
-    storedItems = JSON.parse(item);
+// Helper to get unit price from payload
+function getUnitPrice(payload) {
+  return typeof payload.price === 'number' ? payload.price : 0;
+}
+
+// Helper to load cart items from localStorage
+function loadCartItems() {
+  try {
+    const item = localStorage.getItem('cartItems');
+    return item ? JSON.parse(item) : [];
+  } catch (e) {
+    return [];
   }
-} catch (e) {
-  storedItems = [];
 }
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
     isOpen: false,
-    items: storedItems, // Load from localStorage
+    items: loadCartItems(),
   },
   reducers: {
     openCart: (state) => {
@@ -28,18 +32,16 @@ const cartSlice = createSlice({
       const existingItem = state.items.find(item => item.id === action.payload.id);
 
       if (existingItem) {
-        existingItem.quantity += 1;
+        existingItem.quantity = (existingItem.quantity || 1) + 1;
       } else {
         state.items.push({
           ...action.payload,
           quantity: 1,
-          unitPrice: action.payload.price !== undefined ? action.payload.price : (action.payload.unitPrice !== undefined ? action.payload.unitPrice : 0), // Save the original price
+          unitPrice: getUnitPrice(action.payload),
         });
       }
-
       localStorage.setItem('cartItems', JSON.stringify(state.items));
     },
-
     updateQuantity: (state, action) => {
       const { id, type } = action.payload;
       const item = state.items.find(item => item.id === id);
@@ -52,10 +54,8 @@ const cartSlice = createSlice({
         localStorage.setItem('cartItems', JSON.stringify(state.items));
       }
     },
-
-
     removeFromCart: (state, action) => {
-      state.items = state.items.filter((item) => item.id !== action.payload);
+      state.items = state.items.filter(item => item.id !== action.payload);
       localStorage.setItem('cartItems', JSON.stringify(state.items));
     },
     clearCart: (state) => {
