@@ -1,6 +1,6 @@
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import bagsImg from '/home/rushikeshn/fullStack/ReactProject/NewGenStore1/public/Images/bags.png';
+import bagsImg from '/Images/bags.png';
 const Banner = () => {
   const responsive = {
     all: {

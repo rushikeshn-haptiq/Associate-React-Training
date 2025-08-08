@@ -14,9 +14,10 @@ import Shoes from '../Pages/Products/Shoes'
 import Watches from '../Pages/Products/Watches'
 import Bags from '../Pages/Products/Bags'
 import ProductDetails from '../Features/ProductDetails'
-import ProtectedRoute from '../Features/ProdectedRoute'
+
 import Dashboard from '../Pages/Dashboard'
 import WishlistPage from '../Pages/WIshlistPage'
+import ProtectedRoute from '../Features/ProtectedRoute'
 
 const Router = () => {
   const Router = createBrowserRouter([
